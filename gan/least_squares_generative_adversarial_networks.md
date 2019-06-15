@@ -1,3 +1,7 @@
+# Least Squares Generative Adversarial Networks
+
+- [arxiv](https://arxiv.org/abs/1611.04076)
+
 ## 0. どんなものか
 
 - DCGAN（Deep Convolutional Layerを用いて敵対的入力の学習をさせるもの）の誤差関数をシグモイドクロスエントロピー誤差から，最小二乗誤差に変更したもの．

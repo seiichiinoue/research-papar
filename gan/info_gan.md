@@ -1,3 +1,7 @@
+# InfoGAN
+
+- [arxiv](https://arxiv.org/abs/1606.03657)
+
 ## 0. どんなものか
 
 - Latent codeを用いてGANによる生成画像をコントロールする。
