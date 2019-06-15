@@ -4,7 +4,6 @@
 
 ## Issue Format
 
-
 ```
 ## 0. どんなものか
 
@@ -18,3 +17,8 @@
 
 ## 5. 次に読むべき論文
 ```
+
+## Table of Contents
+- gan
+  - Least Squares Generative Adversarial Networks
+  - InfoGAN
