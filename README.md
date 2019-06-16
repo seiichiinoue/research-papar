@@ -22,3 +22,6 @@
 - gan
   - Least Squares Generative Adversarial Networks
   - InfoGAN
+
+- nlp
+  - nlp research; mostly, attention, transformer and BERT
