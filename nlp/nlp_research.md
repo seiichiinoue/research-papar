@@ -157,6 +157,10 @@ query の配列 Query が与えられれば，その数だけ key-value ペア�
 - $input$($query$)と$memory$($key$, $value$)すべてが同じTensorを使うAttention
 - Self-Attentionは言語の文法構造であったり，照応関係（its が指してるのは Law だよねとか）を獲得するのにも使われているなどと論文では分析されている
 
+- 例えば「バナナが好き」という文章ベクトルを自己注意するとしたら，以下のような構造になる．
+
+<img src="https://camo.qiitausercontent.com/c0357c70af7308f9be5bb30ad4e69fa2f7a00629/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f37353566343237302d336331302d653134612d343033362d3561626639306565663137312e706e67" width=500>
+
 ### Source-Target Attention
 
 <img src="https://camo.qiitausercontent.com/4edacdcfaa0a7104ca91b11adbd85f3ea31c6ac6/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f35343239393939302d623161382d393536392d636536342d3038393830366236303061622e706e67" width=600>
@@ -216,7 +220,7 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 
 - ここで$pos$は単語の位置，$i$は成分の次元である．位置エンコーディングの各次元は波長が$2 \pi$から$10000⋅2 \pi$に幾何学的に伸びる正弦波に対応する．
 
-<img src="https://cdn-ak.f.st-hatena.com/images/fotolife/R/Ryobot/20171221/20171221163928.png" width=500>
+<img src="https://i.stack.imgur.com/zvol4.png" width=500>
 
 - 横軸が単語の位置(0 ~ 99)，縦軸が成分の次元(0 ~ 511)，濃淡が加算する値(-1 ~ 1)．
 
@@ -224,7 +228,21 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 
 ## BERT
 
+### 事前学習タスクの選択
+- 事前学習1 マスク単語の予測
+	- 系列の15%を[MASK]トークンに置き換えて予測
+	- そのうち80%がマスク，10%がランダムな単語，10%を置き換えない方針で変換する
+- 事前学習2 隣接文の予測
+	- 二つの文章を与え隣り合っているかをYes/Noで判定
+	- 文章AとBが与えられた時に，50%の確率で別の文章Bに置き換える
+
+### モデルの構造
+
+<img src="https://camo.qiitausercontent.com/348980102b722b9ab05ed175aa63f452af8ee1b0/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f66303532343866642d663737662d613164652d383336392d3036643363313735646139362e706e67" width=700>
+
+### BRETの動作メカニズム
 
 
-## 汎用言語モデルのBioinformaticsへの応用
+
+## 汎用言語表現モデルのBioinformaticsへの応用
 
