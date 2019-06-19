@@ -228,6 +228,23 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 
 ## BERT
 
+### 概要
+- 単語の分散表現を獲得するためのもの．
+- ネットワーク側ではなく学習データ側にマスクをかけてあげることで双方向transformerが実現した．下図がモデルの概要．
+
+![](https://camo.qiitausercontent.com/dce8f663b7760bfae4faed56bd2cd1658f13140c/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f64633735356535312d363035642d373131612d646437322d3265366130613262643131372e706e67)
+
+- transformerモデルのEncoder部分を全結合的に接続したのがBERTモデル．
+
+<img src="https://cdn-images-1.medium.com/max/1600/1*ARMfhOTPxDWDiiAb-jFrvw.png" width=700>
+
+- 上図のScaled Dot-Product Attentionはself-attention．attentionの重みを計算する際，softmaxで値が大きくなった時に勾配が0にならないようにsoftmaxのlogitのqueryとkeyの行列積を以下のように調整してあげる．
+
+$$attenton \ weight = Softmax(\frac{q k^T}{\sqrt{depth}}) \ where depth = dim of embedding$$
+
+<img src="https://camo.qiitausercontent.com/03b608cc2a33dd3a485eb440569560d4466b0e45/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f61323533633837632d653631392d366431392d316233622d3632306430666535393936652e706e67">
+
+
 ### 事前学習タスクの選択
 - 事前学習1 マスク単語の予測
 	- 系列の15%を[MASK]トークンに置き換えて予測
@@ -236,7 +253,7 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 	- 二つの文章を与え隣り合っているかをYes/Noで判定
 	- 文章AとBが与えられた時に，50%の確率で別の文章Bに置き換える
 
-### モデルの構造
+### 実装
 
 <img src="https://camo.qiitausercontent.com/348980102b722b9ab05ed175aa63f452af8ee1b0/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f66303532343866642d663737662d613164652d383336392d3036643363313735646139362e706e67" width=700>
 
