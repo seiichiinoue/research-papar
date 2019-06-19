@@ -240,7 +240,7 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 
 - 上図のScaled Dot-Product Attentionはself-attention．attentionの重みを計算する際，softmaxで値が大きくなった時に勾配が0にならないようにsoftmaxのlogitのqueryとkeyの行列積を以下のように調整してあげる．
 
-$$attenton \ weight = Softmax(\frac{q k^T}{\sqrt{depth}}) \ where depth = dim of embedding$$
+$$attenton \ weight = Softmax(\frac{q k^T}{\sqrt{depth}}) \\\  where \ depth = dim \ of \ embedding$$
 
 <img src="https://camo.qiitausercontent.com/03b608cc2a33dd3a485eb440569560d4466b0e45/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f61323533633837632d653631392d366431392d316233622d3632306430666535393936652e706e67">
 ### 事前学習タスクの選択
