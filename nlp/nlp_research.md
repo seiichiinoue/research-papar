@@ -244,22 +244,69 @@ $$attenton \ weight = Softmax(\frac{q k^T}{\sqrt{depth}}) \\\  where \ depth = d
 
 <img src="https://camo.qiitausercontent.com/03b608cc2a33dd3a485eb440569560d4466b0e45/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f61323533633837632d653631392d366431392d316233622d3632306430666535393936652e706e67">
 ### 事前学習タスクの選択
-- 事前学習1 マスク単語の予測
-	- 系列の15%を[MASK]トークンに置き換えて予測
-	- そのうち80%がマスク，10%がランダムな単語，10%を置き換えない方針で変換する
-- 事前学習2 隣接文の予測
-	- 二つの文章を与え隣り合っているかをYes/Noで判定
-	- 文章AとBが与えられた時に，50%の確率で別の文章Bに置き換える
+- どちらもBERTからはきだされた内部状態テンソルをInputとして一層のMLPでクラス分類しているだけ．
 
-### モデルの構造
+#### 事前学習1 マスク単語の予測
+- 系列の15%を[MASK]トークンに置き換えて予測
+- そのうち80%がマスク，10%がランダムな単語，10%を置き換えない方針で変換する
+
+```python
+class MaskedLanguageModel(nn.Module):
+    """
+    入力系列のMASKトークンから元の単語を予測する
+    nクラス分類問題, nクラス : vocab_size
+    """
+
+    def __init__(self, hidden, vocab_size):
+        """
+        :param hidden: output size of BERT model
+        :param vocab_size: total vocab size
+        """
+        super().__init__()
+        self.linear = nn.Linear(hidden, vocab_size)
+        self.softmax = nn.LogSoftmax(dim=-1)
+
+    def forward(self, x):
+        return self.softmax(self.linear(x))
+```
+
+#### 事前学習2 隣接文の予測
+- 二つの文章を与え隣り合っているかをYes/Noで判定
+- 文章AとBが与えられた時に，50%の確率で別の文章Bに置き換える
+
+```python
+class NextSentencePrediction(nn.Module):
+    """
+    2クラス分類問題 : is_next, is_not_next
+    """
+
+    def __init__(self, hidden):
+        """
+        :param hidden: BERT model output size
+        """
+        super().__init__()
+        self.linear = nn.Linear(hidden, 2)
+        self.softmax = nn.LogSoftmax(dim=-1)
+
+    def forward(self, x):
+        return self.softmax(self.linear(x[:, 0]))
+```
+
+
+### 実装
 
 <img src="https://camo.qiitausercontent.com/348980102b722b9ab05ed175aa63f452af8ee1b0/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f66303532343866642d663737662d613164652d383336392d3036643363313735646139362e706e67" width=700>
 
-### BRETの動作メカニズム
+
 
 
 
 ## 汎用言語表現モデルのBioinformaticsへの応用
+### 概要
+- T細胞の抗原との結合度をバイナリで予測するモデルを構築したい．
+- 使用するデータは，T細胞自身のペプチド配列と，T細胞が接触するタンパク質配列，またはMHC部分配列
+- ペプチド配列が文字列的に扱えることから配列の解析に自然言語処理的アプローチを用いたい．
 
-...
+### アイデア
+- BERTで試す前に一旦word2vecでモデルを組んでみるのはありかも
 
