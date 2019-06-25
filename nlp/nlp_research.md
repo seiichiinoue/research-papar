@@ -6,6 +6,9 @@
 - 表現したい語彙をリストに表現して，各単語を表現する次元を準備する．**表現したい文章に含まれているか否か**のベクトルで表現する．
 
 ### Word2Vec
+
+- 論文: [Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/abs/1301.3781)
+
 - 大量のテキストデータを解析して，各単語の意味をベクトルで表現する方法．
 - その中でもSkip-Gramモデル(ある単語の周辺に出現する単語の出現確率を計算する)が主に使われる
 - Skip-Gram は２層のニューラルネットワークであり隠れ層は一つだけ．隣接する層のユニットは全結合している．
@@ -28,6 +31,8 @@
 
 
 ## LSTM
+
+- 論文: [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215)
 
 - LSTM(Long short-term memory)は，RNN(Recurrent Neural Network)の拡張として1995年に登場した，時系列データ(sequential data)に対するモデル，あるいは構造(architecture)の1種．その名は，Long term memory(長期記憶)とShort term memory(短期記憶)という神経科学における用語から取られている．LSTMはRNNの中間層のユニットをLSTM blockと呼ばれるメモリと3つのゲートを持つブロックに置き換えることで実現されている．
 
@@ -109,6 +114,8 @@ $\delta z^t = \delta c^t \odot i^t \odot g'(\bar{z}^t)$
 
 ## Attention
 
+- 論文: [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/abs/1508.04025)
+
 <img src="https://camo.qiitausercontent.com/dc9367114569469784d8f5a92b23f3d4291a562f/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f37633230383137622d336563632d363430322d666266362d6263303035643430383734392e706e67" width=700>
 
 - Attentionの基本は$query$と$memory$($key$, $value$)．
@@ -168,6 +175,9 @@ query の配列 Query が与えられれば，その数だけ key-value ペア�
 - Transformerではdecoderで使われる．
 
 ## Transformer
+
+- 論文: [Attention Is All You Need](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf)
+
 - 論文タイトルにもある通り，ATTENTION IS ALL YOU NEED．つまりRNNやCNNを使わずattentionのみを使用した機械翻訳タスクを実現するモデル．
 - 元論文 [Attention is all you need](https://arxiv.org/abs/1706.03762)
 - Google [プロジェクトページ](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)
@@ -245,6 +255,8 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 
 ## BERT
 
+- 論文: [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
+
 ### 概要
 - 単語の分散表現を獲得するためのもの．
 - ネットワーク側ではなく学習データ側にマスクをかけてあげることで双方向transformerが実現した．下図がモデルの概要．
@@ -261,8 +273,9 @@ $$attenton \ weight = Softmax(\frac{q k^T}{\sqrt{depth}}) \\\  where \ depth = d
 
 <img src="https://camo.qiitausercontent.com/03b608cc2a33dd3a485eb440569560d4466b0e45/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f61323533633837632d653631392d366431392d316233622d3632306430666535393936652e706e67">
 
-### 事前学習タスクの選択
+### 事前学習タスク
 - どちらもBERTからはきだされた内部状態テンソルをInputとして一層のMLPでクラス分類しているだけ．
+- これらを用いてBERTの事前学習を行う
 
 #### 事前学習1 マスク単語の予測
 - 系列の15%を[MASK]トークンに置き換えて予測
@@ -312,6 +325,7 @@ class NextSentencePrediction(nn.Module):
 
 
 ### BERTモデルの応用
+- 事前学習を行ったモデルを使って様々なタスクへの応用が行われている．
 
 
 
