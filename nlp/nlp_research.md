@@ -258,12 +258,16 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 - 論文: [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
 
 ### 概要
-- 単語の分散表現を獲得するためのもの．
+- 単語の分散表現を獲得するための機構．TransformerのEncoderブロックから構成される．
+
+<img src="http://jalammar.github.io/images/bert-encoders-input.png">
+
 - ネットワーク側ではなく学習データ側にマスクをかけてあげることで双方向transformerが実現した．下図がモデルの概要．
 
 <img src="https://cdn-images-1.medium.com/max/1600/1*ARMfhOTPxDWDiiAb-jFrvw.png">
 
 - transformerモデルのEncoder部分を全結合的に接続したのがBERTモデル．
+
 
 <img src="https://camo.qiitausercontent.com/0c71ab10a88d718eedb3ffadfc9a3c3339b9f7f2/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f63633966333864302d633934632d326334372d366466662d3235366239316166623431302e706e67" width=700>
 
@@ -272,6 +276,12 @@ $$Attention(Q, K, V) = Softmax(\frac{Q K^T}{\sqrt{d_k}})V$$
 $$attenton \ weight = Softmax(\frac{q k^T}{\sqrt{depth}}) \\\  where \ depth = dim \ of \ embedding$$
 
 <img src="https://camo.qiitausercontent.com/03b608cc2a33dd3a485eb440569560d4466b0e45/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f61323533633837632d653631392d366431392d316233622d3632306430666535393936652e706e67">
+
+- 使用するTransformerのEncoderは以下のようになっている(しかしattentionは一つ．)
+
+<img src="https://camo.qiitausercontent.com/bafd1edb8464cf01419981b80573c7305af57ca2/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f36313037392f36336639343733382d663066372d333538372d393036312d3739643631373531373432352e706e67">
+
+
 
 ### 事前学習タスク
 - どちらもBERTからはきだされた内部状態テンソルをInputとして一層のMLPでクラス分類しているだけ．
