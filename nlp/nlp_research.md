@@ -179,7 +179,6 @@ query の配列 Query が与えられれば，その数だけ key-value ペア�
 - 論文: [Attention Is All You Need](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf)
 
 - 論文タイトルにもある通り，ATTENTION IS ALL YOU NEED．つまりRNNやCNNを使わずattentionのみを使用した機械翻訳タスクを実現するモデル．
-- 元論文 [Attention is all you need](https://arxiv.org/abs/1706.03762)
 - Google [プロジェクトページ](https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html)
 - Pytorch model [Github](https://github.com/jadore801120/attention-is-all-you-need-pytorch)
 
