@@ -337,5 +337,8 @@ class NextSentencePrediction(nn.Module):
 - 事前学習を行ったモデルを使って様々なタスクへの応用が行われている．
 
 
+#### classification
+- 可変長の入力に対する固定長の分散表現を獲得するためBERTの出力のうち，[CLS]トークンに対応するembeddingだけをしようして後続のDenseレイヤーに入力する．出力はsoftmax関数などを使用して各ラベルの確率を出力する．
+
 
 
