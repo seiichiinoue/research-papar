@@ -340,5 +340,4 @@ class NextSentencePrediction(nn.Module):
 #### classification
 - 可変長の入力に対する固定長の分散表現を獲得するためBERTの出力のうち，[CLS]トークンに対応するembeddingだけをしようして後続のDenseレイヤーに入力する．出力はsoftmax関数などを使用して各ラベルの確率を出力する．
 
-
-
+<img src="https://camo.qiitausercontent.com/46ce0feed4f5f5fbe753dc02910ca045bf49b27b/68747470733a2f2f71696974612d696d6167652d73746f72652e73332e616d617a6f6e6177732e636f6d2f302f3132333538392f62383835303864612d613961662d383165392d333530382d6638646232653333366264652e706e67">
